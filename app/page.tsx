@@ -1,20 +1,44 @@
-"use client";
-
-import { Flex } from "@chakra-ui/react";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
-
 import { useGetMapAllData } from "./hooks/useGetMapAllData";
+import { MapRender } from "./components/MapRender";
 
-export default function Home() {
-  const position = { lat: 61.2176, lng: -149.8997 };
+//??? Is this?
+// import { map } from "framer-motion/client";
 
-  const { mapAllData } = useGetMapAllData();
+// function fail() {
+//   alert("位置情報の取得に失敗しました。");
+// }
 
-  return (
-    <APIProvider apiKey="AIzaSyBN2E7WJ1Nm-u4-RxC4ZDPjEoVA0pRhh_A">
-      <Flex flex="1">
-        <Map zoom={9} center={position} />
-      </Flex>
-    </APIProvider>
-  );
+export default async function Home() {
+  // navigator.geolocation.getCurrentPosition((pos) => {
+  //   position.lat = pos.coords.latitude;
+  //   position.lng = pos.coords.longitude;
+  // }, fail);
+
+  const mapAllData = await useGetMapAllData();
+
+  return <MapRender mapAllData={mapAllData} />;
 }
+
+// type Point = google.maps.LatLngLiteral & { lat: number } & {
+//   lng: number;
+// } & { category: number };
+// type Props = { points: Point[] };
+
+// interface MAPALLDataProps {
+//   mapAllData: MapData[];
+// }
+
+// const Markers = ({ mapAllData }: MAPALLDataProps) => {
+//   return (
+//     <>
+//       {mapAllData.map((mapData) => (
+//         <AdvancedMarker
+//           position={{ lat: mapData.lat, lng: mapData.lng }}
+//           key={mapData.id}
+//         >
+//           <Pin background={"blue"} borderColor={"green"} glyphColor={"green"} />
+//         </AdvancedMarker>
+//       ))}
+//     </>
+//   );
+// };

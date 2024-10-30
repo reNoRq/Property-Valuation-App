@@ -30,12 +30,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Providers>
-          <Flex direction="column" height="100vh">
-            <Header />
-            {children}
-          </Flex>
-        </Providers>
+          <Providers>
+            <Flex direction="column" height="100vh">
+              <Header />
+              {children}
+            </Flex>
+          </Providers>
       </body>
     </html>
   );

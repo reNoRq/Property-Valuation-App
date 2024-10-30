@@ -8,11 +8,16 @@ export async function GET() {
 // req: Request
 
 export async function POST(req: Request) {
-    const {} = req.json();
-    const post = await prisma.post.create({
-        data: {
-
-        }
-    });
-    return NextResponse.json(post);
-  }
+  const { title, content, address, lat, lng, category } = await req.json();
+  const post = await prisma.post.create({
+    data: {
+      title,
+      content,
+      address,
+      lat,
+      lng,
+      category,
+    },
+  });
+  return NextResponse.json(post);
+}

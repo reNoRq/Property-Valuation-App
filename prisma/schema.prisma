@@ -17,5 +17,9 @@ model Post {
   id Int @id @default(autoincrement())
   title String
   content String
+  address String
+  lat Decimal
+  lng Decimal
+  category Int
   createdAt DateTime @default(now())
 }
