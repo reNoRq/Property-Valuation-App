@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import { Providers } from "./providers";
+import ChakuraProvider from "./chakraproviders";
 import { Flex } from "@chakra-ui/react";
 
 import { Header } from "./components/layouts/header/Header";
@@ -30,12 +30,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          <Providers>
+          <ChakuraProvider>
             <Flex direction="column" height="100vh">
               <Header />
               {children}
             </Flex>
-          </Providers>
+          </ChakuraProvider>
       </body>
     </html>
   );

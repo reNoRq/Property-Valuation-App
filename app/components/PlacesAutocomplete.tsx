@@ -1,7 +1,7 @@
 "use client";
 
 //Google Places API
-import { Input, List, ListItem } from "@chakra-ui/react";
+import { Box, Input, List, ListItem } from "@chakra-ui/react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -31,7 +31,7 @@ export const PlacesAutocomplete = ({ setSelected, setAddress, setLat, setLng }) 
   return (
     <>
       <Input
-        placeholder="Search an address"
+        placeholder="場所を入力"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
@@ -39,7 +39,7 @@ export const PlacesAutocomplete = ({ setSelected, setAddress, setLat, setLng }) 
         disabled={!ready}
       />
       {status === "OK" && (
-        <List
+        <Box
           border="1px solid"
           borderColor="gray.200"
           borderRadius="md"
@@ -47,15 +47,15 @@ export const PlacesAutocomplete = ({ setSelected, setAddress, setLat, setLng }) 
           shadow="sm"
         >
           {data.map(({ place_id, description }) => (
-            <ListItem
+            <Box
               key={place_id}
               _hover={{ backgroundColor: "gray.100", cursor: "pointer" }}
               onClick={() => handleSelect(description)}
             >
               {description}
-            </ListItem>
+            </Box>
           ))}
-        </List>
+        </Box>
       )}
     </>
   );

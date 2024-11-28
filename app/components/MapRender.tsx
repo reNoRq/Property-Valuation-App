@@ -128,10 +128,12 @@ import {
   InfoWindow,
   Map,
   Pin,
+  useMap,
 } from "@vis.gl/react-google-maps";
-import { Flex, Box, Heading, Text, Divider } from "@chakra-ui/react";
+import { MarkerClusterer, Marker } from "@googlemaps/markerclusterer";
+import { Flex, Box, Heading, Text, Separator } from "@chakra-ui/react";
 import { MapData } from "../types/type";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
 
 interface MAPALLDataProps {
@@ -146,6 +148,40 @@ export const MapRender = ({ mapAllData }: MAPALLDataProps) => {
   const selectedPinData = mapAllData.find(
     (mapData) => mapData.id === selectedPin
   );
+
+  // clusterer処理
+  const map = useMap();
+  const [markers, setMarkers] = useState<{ [key: number]: Marker }>({});
+  const clusterer = useRef<MarkerClusterer | null>(null);
+
+  useEffect(() => {
+    if (!map) return;
+    if (!clusterer.current) {
+      clusterer.current = new MarkerClusterer({ map });
+    }
+  }, [map]);
+
+  useEffect(() => {
+    clusterer.current?.clearMarkers();
+    clusterer.current?.addMarkers(Object.values(markers));
+  }, [markers]);
+
+  const setMarkerRef = (marker: Marker | null, key: number) => {
+    if (marker && markers[key]) return;
+    if (!marker && !markers[key]) return;
+
+    setMarkers((prev) => {
+      if (marker) {
+        return { ...prev, [key]: marker };
+      } else {
+        const newMarkers = { ...prev };
+        delete newMarkers[key];
+        return newMarkers;
+      }
+    });
+  };
+
+  // console.log(markers);
 
   return (
     <APIProvider
@@ -172,6 +208,7 @@ export const MapRender = ({ mapAllData }: MAPALLDataProps) => {
               }}
               key={mapData.id}
               onClick={() => setSelectedPin(mapData.id)}
+              ref={(marker) => setMarkerRef(marker, mapData.id)}
             >
               <Pin
                 background={"blue"}
@@ -211,7 +248,7 @@ export const MapRender = ({ mapAllData }: MAPALLDataProps) => {
                   new Date(selectedPinData.createdAt),
                   "yyyy/MM/dd"
                 )} - ${selectedPinData.address}`}</Text>
-                <Divider borderColor="gray.500" />
+                <Separator borderColor="gray.500" />
                 <Text fontSize="lg" color="gray.700" marginTop={4}>
                   {selectedPinData.content}
                 </Text>

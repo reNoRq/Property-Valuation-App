@@ -48,21 +48,21 @@ export const Header = () => {
             <ChakraLink href="/about">About</ChakraLink>
           </Box>
           <NextLink href="map-posts/create">
-            <Button colorScheme="gray" size="sm">
+            <Button colorPalette="gray" size="sm">
               Create Post
             </Button>
           </NextLink>
         </Flex>
-        <IconButton
+        {/* <IconButton
           aria-label="メニューボタン"
           icon={<HamburgerIcon />}
           size="sm"
           variant="unstyled"
           display={{ base: "block", md: "none" }}
           onClick={onOpen}
-        />
+        /> */}
       </Flex>
-      <Flex>
+      {/* <Flex>
         <Drawer placement="left" size="xs" onClose={onClose} isOpen={isOpen}>
           <DrawerOverlay>
             <DrawerContent>
@@ -74,7 +74,7 @@ export const Header = () => {
             </DrawerContent>
           </DrawerOverlay>
         </Drawer>
-      </Flex>
+      </Flex> */}
     </>
   );
 };
