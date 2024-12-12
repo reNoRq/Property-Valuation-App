@@ -32,6 +32,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
           <ChakuraProvider>
             <Flex direction="column" height="100vh">
+            {/* <Flex direction="column" height="100vh" bg="#dcdcdc"> */}
               <Header />
               {children}
             </Flex>

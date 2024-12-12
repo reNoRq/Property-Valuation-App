@@ -1,13 +1,23 @@
 "use client";
 
 //Google Places API
-import { Box, Input, List, ListItem } from "@chakra-ui/react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 
-export const PlacesAutocomplete = ({ setSelected, setAddress, setLat, setLng }) => {
+import { LuSearch } from "react-icons/lu";
+
+import { Box, Input } from "@chakra-ui/react";
+import { InputGroup } from "@/components/ui/input-group";
+import { CloseButton } from "@/components/ui/close-button";
+
+export const PlacesAutocomplete = ({
+  setSelected,
+  setAddress,
+  setLat,
+  setLng,
+}) => {
   const {
     ready,
     value,
@@ -30,16 +40,41 @@ export const PlacesAutocomplete = ({ setSelected, setAddress, setLat, setLng }) 
 
   return (
     <>
-      <Input
-        placeholder="場所を入力"
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-        disabled={!ready}
-      />
+      <InputGroup
+        w="full"
+        startElement={<LuSearch />}
+        endElement={
+          <CloseButton
+            size="sm"
+            bg="gray.50"
+            color="gray.700"
+            _hover={{ bg: "gray.300", color: "black" }}
+            borderRadius="lg"
+            onClick={() => {
+              setValue("");
+              setAddress("");
+              setSelected(null);
+            }}
+          />
+        }
+      >
+        <Input
+          placeholder="場所を入力"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          disabled={!ready}
+          borderRadius="md"
+          color="gray.800"
+          bg="gray.50"
+        />
+      </InputGroup>
       {status === "OK" && (
         <Box
+          w="full"
+          color="gray.800"
+          bg="white"
           border="1px solid"
           borderColor="gray.200"
           borderRadius="md"

@@ -12,12 +12,24 @@ import {
   IconButton,
   Link as ChakraLink,
   useDisclosure,
+  Stack,
+  Input,
+  Textarea,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { Field } from "@/components/ui/field";
 import NextLink from "next/link";
+import { PlacesAutocomplete } from "../../PlacesAutocomplete";
+import { CreatePostDialog } from "../../CreatePostDialog";
+import { useState } from "react";
 
 export const Header = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [isNewPost, setNewPost] = useState(false); //新しい投稿を監視
+
+  // const createNewPost = () => {
+  //   setNewPost((prev) => !prev);
+  // }
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Flex
@@ -39,19 +51,15 @@ export const Header = () => {
           align="center"
           fontSize="sm"
           flexGrow={2}
-          display={{ base: "none", md: "flex" }}
+          // display={{ base: "none", md: "flex" }}
         >
           <Box pr={4}>
-            <ChakraLink href="/">Home</ChakraLink>
+            <NextLink href="/">Home</NextLink>
           </Box>
           <Box pr={4}>
-            <ChakraLink href="/about">About</ChakraLink>
+            <NextLink href="/about">About</NextLink>
           </Box>
-          <NextLink href="map-posts/create">
-            <Button colorPalette="gray" size="sm">
-              Create Post
-            </Button>
-          </NextLink>
+          <CreatePostDialog />
         </Flex>
         {/* <IconButton
           aria-label="メニューボタン"

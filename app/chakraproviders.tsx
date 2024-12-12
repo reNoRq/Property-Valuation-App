@@ -12,6 +12,7 @@
 // }
 
 import { Provider } from "@/components/ui/provider";
+import { APIProvider } from "@vis.gl/react-google-maps";
 
 // export const Providers = (props: { children: React.ReactNode }) => (
 //   const {children} = props;
@@ -22,5 +23,15 @@ import { Provider } from "@/components/ui/provider";
 
 export default function ChakuraProvider(props: { children: React.ReactNode }) {
   const { children } = props;
-  return <Provider>{children}</Provider>;
+  return (
+    <Provider>
+      {" "}
+      <APIProvider
+        apiKey="AIzaSyBN2E7WJ1Nm-u4-RxC4ZDPjEoVA0pRhh_A"
+        libraries={["places"]}
+      >
+        {children}
+      </APIProvider>
+    </Provider>
+  );
 }
